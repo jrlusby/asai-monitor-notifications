@@ -1,0 +1,16 @@
+# this is a comment
+monitor_ip = ip.addr.something.other
+monitor_port = 1234
+from_email = user@example.com
+username = user
+password = password
+# to_email = user1@example.com
+to_email = user2@example.com
+to_email = user3@example.com
+to_email = user4@example.com
+mailserver = mail.example.com:port
+
+# preface all keywords with keyword =, if you have a way you'd rather do this then let me know 
+# Keywords will ignore case
+#keyword = howdy dody
+keyword = dropped
