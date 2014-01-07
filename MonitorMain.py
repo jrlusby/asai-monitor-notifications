@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import sys
+import threading
 
 def main(argv):
     config_file = "monitor.conf"
@@ -32,11 +33,22 @@ def main(argv):
 
     import MonitorNotifier
     Notifier = MonitorNotifier.Notifier(settings['mailserver'], settings['username'], settings['password'])
-    Notifier.notify(settings['from_email'], to_emails, "test", "this is a test")
 
     import MonitorParser
-    for line in MonitorParser.listen(settings['monitor_ip'], settings['monitor_port']):
-        print(line)
+    for line in MonitorParser.parseEventData(settings['monitor_ip'], settings['monitor_port']):
+        print(line[1])
+        for keyword in keywords:
+            if keyword.lower() in line[1].lower():
+                print("-----" + line[1] + "------")
+                #should probably be set up for batch mails and only attempts to establish a connection once every 5 minutes or so
+                try:
+                    t = threading.Thread(target=Notifier.notify, 
+                            args=(settings['from_email'], to_emails, line[1], line[0]))
+                    t.start()
+                except:
+                    print(sys.exc_info())
+                    print("failure")
+                break
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
