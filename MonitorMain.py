@@ -48,13 +48,13 @@ def main(argv):
             if keyword.lower() in line[1].lower():
                 print("-----" + line[1] + "------")
                 #should probably be set up for batch mails and only attempts to establish a connection once every 5 minutes or so
-                try:
-                    t = threading.Thread(target=Notifier.notify, 
-                            args=(settings['from_email'], to_emails, line[1], line[0]))
-                    t.start()
-                except:
-                    print(sys.exc_info())
-                    print("failure")
+                # try:
+                #     t = threading.Thread(target=Notifier.notify, 
+                #             args=(settings['from_email'], to_emails, line[1], line[0]))
+                #     t.start()
+                # except:
+                #     print(sys.exc_info())
+                #     print("failure")
                 break
 
 if __name__ == "__main__":
