@@ -17,7 +17,7 @@ def listen(ip_addr, port):
     start = "<?xml version='1.0' encoding='ISO-8859-1'?>"
     stop = "</sps:DataMsg>"
     while True:
-        recv = str(sock.recv(2048))
+        recv = str(sock.recv(2048), encoding='UTF-8')
         if recv:
             buff = buff + recv
             if start in buff and stop in buff:
