@@ -11,6 +11,11 @@ def main(argv):
     #create settings dictionary
     with open(config_file) as f:
         for line in f:
+            #A fairly lousy comment skipper, only checks for lines that start
+            #in a comment. If I was pro or less lazy I'd make it split lines at
+            #the first comment and only process the first half. Whatever, its
+            #not like I need it to be a bulletproof implementation, I'm the only
+            #user
             if line[0] == '#' or line in ['\n','\r\n']:
                 continue
             else:
@@ -37,6 +42,8 @@ def main(argv):
     import MonitorParser
     for line in MonitorParser.parseEventData(settings['monitor_ip'], settings['monitor_port']):
         print(line[1])
+        if line[1] == "no event data":
+            print("FULL MSG" + line[0])
         for keyword in keywords:
             if keyword.lower() in line[1].lower():
                 print("-----" + line[1] + "------")

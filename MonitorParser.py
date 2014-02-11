@@ -3,9 +3,12 @@ import sys
 
 
 def main(argv):
+    #real basic code to grab the lines from the yield thing
     for line in listen("192.168.30.102", 8202):
         print(line)
 
+#the yield thing that yields massages (The second of 3 MASSAGE yielders @
+#MINDBODY)
 def listen(ip_addr, port):
     import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
